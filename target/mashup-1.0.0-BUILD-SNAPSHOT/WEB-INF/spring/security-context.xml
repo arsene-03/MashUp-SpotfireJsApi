@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:sec="http://www.springframework.org/schema/security"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!-- Resources 폴더 이하 파일 인증과정 없이 조회 가능 -->
+    <sec:http pattern="/resources/**" security="none" />
+
+    <sec:http use-expressions="true">
+   	
+    <!-- 로그인 페이지, 회원가입페이지, 기본홈페이지 로그인 없이 사용가능 -->
+        <sec:intercept-url pattern="/login" access= "permitAll()" />
+        <sec:intercept-url pattern="/join" access="permitAll()" />
+        <sec:intercept-url pattern="/" access="permitAll()" />
+    
+    <!-- /admin이 선행되는 페이지 관리자만 입장 가능 -->
+        <sec:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+        
+    <!-- 나머지 페이지 모드 로그인 이후 사용 가능 -->
+        <sec:intercept-url pattern="/**" access="isAuthenticated()" />
+    
+    <!-- 로그인 관련 설정 -->
+        <sec:form-login login-page="/login"
+                        login-processing-url="/login"
+                        authentication-failure-handler-ref="securityMemberFailService"
+                        username-parameter="id"
+                        password-parameter="password"
+                        default-target-url="/"
+                        always-use-default-target="true"
+                        
+        />
+        
+    <!-- 로그아웃 설정 -->
+        <sec:logout logout-url="/logout" logout-success-url="/login" />
+        
+    <!-- 접근제한 핸들러 -->
+        <sec:access-denied-handler ref="securityUserDeniedHandler"/>
+    </sec:http>
+  
+
+	<!-- 암호화 클래스 (단방향 암호화 클래스) -->
+    <bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    
+    <!-- 로그인 서비스 -->
+    <bean id="securityMemberService" class="com.pnd.mashup.security.SecurityMemberService"/>
+    
+	<!-- 로그인 실패 서비스 -->
+    <bean id="securityMemberFailService" class="com.pnd.mashup.security.SecurityMemberFailService"/>
+
+	<!-- 접근제한 핸들러 -->
+	<bean id="securityUserDeniedHandler" class="com.pnd.mashup.security.SecurityUserDeniedHandler"/>
+		
+	<!-- DB연동 설정 -->
+    <sec:authentication-manager erase-credentials="false">
+        <sec:authentication-provider user-service-ref="securityMemberService">
+            <sec:password-encoder ref="bCryptPasswordEncoder" />
+        </sec:authentication-provider>
+    </sec:authentication-manager>
+
+</beans>
