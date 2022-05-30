@@ -32,23 +32,4 @@
 			</sec:authorize> 
 	  	</div>
 	</div>
-	<script>
-// 로그아웃 form 태그 //
-	function logOutPost(){
-		if(confirm("로그아웃 하시겠습니까?")){
-			let f = document.createElement('form');
-		    f.setAttribute('action', '/logout');
-		    f.setAttribute('method', 'post');
-		    let sec = document.createElement('input');
-		    sec.setAttribute('type', 'hidden');
-		    sec.setAttribute('name', '${_csrf.parameterName}');
-		    sec.setAttribute('value', '${_csrf.token}');
-		   
-		    document.body.appendChild(f);
-		    f.appendChild(sec);
-		    
-		    f.submit();	
-		}
-	}
-</script>
 </header>

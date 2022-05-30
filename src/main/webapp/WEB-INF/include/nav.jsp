@@ -51,15 +51,12 @@
           </a>
         </h6>
         <ul class="nav flex-column mb-2" id="reportList">
-        
-        
-
          <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0)"  id="/abc/varchart" onclick="changePath(event)"  >
+            <a class="nav-link" href="javascript:void(0)"  id="/abc/barchart" onclick="changePath(event)"  >
               <span data-feather="file-text" class="align-text-bottom">
               	<img alt="" src="${pageContext.request.contextPath}/resources/img/icon/report.svg" class="feather feather-file-text align-text-bottom" aria-hidden="true">
               </span>
-              varchart
+              barchart
             </a>
           </li>
           <li class="nav-item">
