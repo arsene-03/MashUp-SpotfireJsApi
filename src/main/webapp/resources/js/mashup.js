@@ -73,8 +73,8 @@ function changePath(event) {
    
  
 	//External Authentication - Cookie설정
-	    var getCookieName = document.getElementById('cookieName').value;
-	    setCookie('SSOConn',getCookieName,1);
+	    var getUserNameForCookie = document.getElementById('cookieName').value;
+	    setCookie('SSOConn',getUserNameForCookie,1);
 	    console.log('쿠키날림');
 }
    
