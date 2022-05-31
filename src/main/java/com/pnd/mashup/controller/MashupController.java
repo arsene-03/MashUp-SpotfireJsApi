@@ -121,17 +121,6 @@ public class MashupController {
 		
 		return "userInfo";
 	}
-	@RequestMapping(value = "/mash", method = RequestMethod.GET)
-	public String gomash(Model model, Authentication authentication,@RequestParam("path")String path) {
-		System.out.println("경로:"+path);
-		model.addAttribute("path",path);
-		return "mash";
-	}
-
-	
-	
-	
-	
 	// 유저정보가 있으면 model객체로 넘겨주는 메서드
 	private void authenticationChk(Authentication authentication, Model model) {
 		if(authentication != null) {

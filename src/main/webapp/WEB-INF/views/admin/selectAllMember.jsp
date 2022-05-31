@@ -45,7 +45,7 @@
             </tr>
           </thead>
           <tbody>
-          	<c:forEach var="members" items="${Lib_items}">
+          	<c:forEach var="members" items="${memberList}">
 	          	<tr>
 	              <td>${members.id}</td>
 	              <td>
@@ -86,5 +86,6 @@
 			return false;
 		}
       </script>
+      <script src="${pageContext.request.contextPath}/resources/js/mashup.js"></script>
 </body>
 </html>
